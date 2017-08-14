@@ -7,7 +7,18 @@
   <body>
     <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
     <script>
+        function getQueryVariable(variable)
+        {
+           var query = window.location.search.substring(1);
+           var vars = query.split("&");
+           for (var i=0;i<vars.length;i++) {
+                   var pair = vars[i].split("=");
+                   if(pair[0] == variable){return pair[1];}
+           }
+           return(false);
+        }
         alert("window.location.href (outside): " + window.location.href);
+        var state = getQueryVariable("state");
     </script>
     <script>
       function onSignIn(googleUser) {
@@ -24,7 +35,7 @@
         // The ID token you need to pass to your backend:
         var access_token = googleUser.getAuthResponse().access_token;
         console.log("access_token: " + access_token);
-        window.location="https://oauth-redirect.googleusercontent.com/r/auth-test123#access_token="+access_token+"&state="+Math.floor((Math.random() * 1000000) + 1);
+        window.location="https://oauth-redirect.googleusercontent.com/r/auth-test123#access_token="+access_token+"&state="+state;
       };
     </script>
   </body>
