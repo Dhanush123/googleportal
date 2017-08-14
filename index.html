@@ -20,7 +20,7 @@
         // The ID token you need to pass to your backend:
         var access_token = googleUser.getAuthResponse().access_token;
         console.log("access_token: " + access_token);
-        window.location="https://oauth-redirect.googleusercontent.com/r/auth-test123#access_token="+access_token;
+        window.location="https://oauth-redirect.googleusercontent.com/r/auth-test123#access_token="+access_token+"&state="+Math.floor((Math.random() * 1000000) + 1);
       };
     </script>
   </body>
