@@ -1,0 +1,44 @@
+<html lang="en">
+  <head>
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-prompt" content="none">
+    <meta name="google-signin-client_id" content="258067669794-22t9425rfgmchd71t1vf615duj1ip3ta.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+  </head>
+  <body>
+    <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+    <script>
+        function getQueryVariable(variable)
+        {
+           var query = window.location.search.substring(1);
+           var vars = query.split("&");
+           for (var i=0;i<vars.length;i++) {
+                   var pair = vars[i].split("=");
+                   if(pair[0] == variable){return pair[1];}
+           }
+           return(false);
+        }
+        // alert("window.location.href (outside): " + window.location.href);
+        var state = getQueryVariable("state");
+    </script>
+    <script>
+      function onSignIn(googleUser) {
+        // alert("window.location.href (onSignIn): " + window.location.href);
+        // Useful data for your client-side scripts:
+        var profile = googleUser.getBasicProfile();
+        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+        console.log('Full Name: ' + profile.getName());
+        console.log('Given Name: ' + profile.getGivenName());
+        console.log('Family Name: ' + profile.getFamilyName());
+        console.log("Image URL: " + profile.getImageUrl());
+        console.log("Email: " + profile.getEmail());
+
+        // The ID token you need to pass to your backend:
+        var access_token = googleUser.getAuthResponse().access_token;
+        var expires_at = googleUser.getAuthResponse().expires_at;
+        alert("access_token: " + access_token + ", expires_at: " + expires_at);
+        window.location.replace("https://oauth-redirect.googleusercontent.com/r/auth-test123#access_token="+access_token+"&state="+state);
+      };
+    </script>
+  </body>
+</html>
