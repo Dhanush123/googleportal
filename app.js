@@ -22,12 +22,11 @@
 function getUiConfig() {
   return {
     'callbacks': {
-      var redirectUrl = "https://oauth-redirect.googleusercontent.com/r/auth-test123";
       // Called when the user has been successfully signed in.
       'signInSuccess': function(user, credential, redirectUrl) {
         handleSignedInUser(user);
         // Do not redirect.
-        return false;
+        return true;
       }
     },
     // Opens IDP Providers sign-in flow in a popup.
