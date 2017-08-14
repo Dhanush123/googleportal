@@ -1,62 +1,63 @@
-<html itemscope itemtype="http://schema.org/Article">
-<head>
-  <!-- BEGIN Pre-requisites -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
-  </script>
-  <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer>
-  </script>
-  <!-- Continuing the <head> section -->
-  <script>
-    function start() {
-      gapi.load('auth2', function() {
-        auth2 = gapi.auth2.init({
-          client_id: '258067669794-ns1e8a2nhutt31iigs33qc1rn07rpapo.apps.googleusercontent.com',
-          // Scopes to request in addition to 'profile' and 'email'
-          //scope: 'additional_scope'
-        });
-      });
-    }
-  </script>
-</head>
-<body>
-  <!-- Add where you want your sign-in button to render -->
-  <!-- Use an image that follows the branding guidelines in a real app -->
-  <button id="signinButton">Sign in with Google</button>
-  <script>
-    $('#signinButton').click(function() {
-      // signInCallback defined in step 6.
-      auth2.grantOfflineAccess().then(signInCallback);
-    });
-  </script>
-  <!-- Last part of BODY element in file index.html -->
-  <script>
-  function signInCallback(authResult) {
-    if (authResult['code']) {
-
-      // Hide the sign-in button now that the user is authorized, for example:
-      $('#signinButton').attr('style', 'display: none');
-
-      // Send the code to the server
-      $.ajax({
-        type: 'POST',
-        url: 'https://authportal.herokuapp.com/storeauthcode',
-        // Always include an `X-Requested-With` header in every AJAX request,
-        // to protect against CSRF attacks.
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest'
-        },
-        contentType: 'application/octet-stream; charset=utf-8',
-        success: function(result) {
-          console.log("result: " + JSON.stringify(result));
-        },
-        processData: false,
-        data: authResult['code']
-      });
-    } else {
-      console.log("error w/ server request!!!");
-      // There was an error.
-    }
-  }
-  </script>
-</body>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>FirebaseUI Auth Demo</title>
+    <script src="https://www.gstatic.com/firebasejs/live/4.1/firebase.js"></script>
+    <script src="config.js"></script>
+    <script src="common.js"></script>
+    <link href="style.css" rel="stylesheet" type="text/css" media="screen" />
+    <script src="https://cdn.firebase.com/libs/firebaseui/2.3.0/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.3.0/firebaseui.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div id="container">
+      <h3>FirebaseUI Demo</h3>
+      <div id="loading">Loading...</div>
+      <div id="loaded" class="hidden">
+        <div id="main">
+          <div id="user-signed-in" class="hidden">
+            <div id="user-info">
+              <div id="photo-container">
+                <img id="photo">
+              </div>
+              <div id="name"></div>
+              <div id="email"></div>
+              <div id="phone"></div>
+              <div class="clearfix"></div>
+            </div>
+            <!-- <p>
+              <button id="sign-out">Sign Out</button>
+              <button id="delete-account">Delete account</button>
+            </p> -->
+          </div>
+          <!-- <div id="user-signed-out" class="hidden">
+            <h4>You are signed out.</h4>
+            <fieldset>
+              <legend>Configuration</legend>
+              reCAPTCHA mode for Phone Auth:
+              <label for="recaptcha-normal">
+                <input type="radio" id="recaptcha-normal" name="recaptcha" value="normal">
+                Normal
+              </label>
+              <label for="recaptcha-invisible">
+                <input type="radio" id="recaptcha-invisible" name="recaptcha" value="invisible">
+                Invisible
+              </label>
+            </fieldset>
+            <p>
+              <button id="sign-in-with-redirect">Sign In with Redirect</button>
+              <button id="sign-in-with-popup">Sign In with Popup</button>
+            </p>
+            <div id="firebaseui-spa">
+              <h5>Single Page Application mode:</h5>
+              <div id="firebaseui-container"></div>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+    <script src="app.js"></script>
+  </body>
 </html>
