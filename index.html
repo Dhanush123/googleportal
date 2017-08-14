@@ -2,62 +2,49 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>FirebaseUI Auth Demo</title>
-    <script src="https://www.gstatic.com/firebasejs/live/4.1/firebase.js"></script>
-    <script src="config.js"></script>
-    <script src="common.js"></script>
-    <link href="style.css" rel="stylesheet" type="text/css" media="screen" />
+    <title> Browser Control Sign-In </title>
+    <!-- *******************************************************************************************
+       * TODO(DEVELOPER): Paste the initialization snippet from:
+       * Firebase Console > Overview > Add Firebase to your web app. *
+       ***************************************************************************************** -->
+     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+     <script>
+       // Initialize Firebase
+       var config = {
+         apiKey: "AIzaSyBQQWIsMqPoedrSxFs_SQOiDfSuHNN8veY",
+         authDomain: "auth-test123-90546.firebaseapp.com",
+         databaseURL: "https://auth-test123-90546.firebaseio.com",
+         projectId: "auth-test123",
+         storageBucket: "auth-test123.appspot.com",
+         messagingSenderId: "627187333481"
+       };
+       firebase.initializeApp(config);
+     </script>
+
     <script src="https://cdn.firebase.com/libs/firebaseui/2.3.0/firebaseui.js"></script>
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.3.0/firebaseui.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript">
+      // FirebaseUI config.
+      var uiConfig = {
+        signInSuccessUrl: 'https://oauth-redirect.googleusercontent.com/r/auth-test123',
+        signInOptions: [
+          // Leave the lines as is for the providers you want to offer your users.
+          firebase.auth.GoogleAuthProvider.PROVIDER_ID
+        ],
+        // Terms of service url.
+        tosUrl: 'https://drive.google.com/open?id=115j6gF5_uN-NWXBfpzTHc7UwVP9nzP8FN_2O6UqYwRI'
+      };
+
+      // Initialize the FirebaseUI Widget using Firebase.
+      var ui = new firebaseui.auth.AuthUI(firebase.auth());
+      // The start method will wait until the DOM is loaded.
+      ui.start('#firebaseui-auth-container', uiConfig);
+    </script>
   </head>
   <body>
-    <div id="container">
-      <h3>FirebaseUI Demo</h3>
-      <div id="loading">Loading...</div>
-      <div id="loaded" class="hidden">
-        <div id="main">
-          <div id="user-signed-in" class="hidden">
-            <div id="user-info">
-              <div id="photo-container">
-                <img id="photo">
-              </div>
-              <div id="name"></div>
-              <div id="email"></div>
-              <div id="phone"></div>
-              <div class="clearfix"></div>
-            </div>
-            <!-- <p>
-              <button id="sign-out">Sign Out</button>
-              <button id="delete-account">Delete account</button>
-            </p> -->
-          </div>
-          <!-- <div id="user-signed-out" class="hidden">
-            <h4>You are signed out.</h4>
-            <fieldset>
-              <legend>Configuration</legend>
-              reCAPTCHA mode for Phone Auth:
-              <label for="recaptcha-normal">
-                <input type="radio" id="recaptcha-normal" name="recaptcha" value="normal">
-                Normal
-              </label>
-              <label for="recaptcha-invisible">
-                <input type="radio" id="recaptcha-invisible" name="recaptcha" value="invisible">
-                Invisible
-              </label>
-            </fieldset>
-            <p>
-              <button id="sign-in-with-redirect">Sign In with Redirect</button>
-              <button id="sign-in-with-popup">Sign In with Popup</button>
-            </p>
-            <div id="firebaseui-spa">
-              <h5>Single Page Application mode:</h5>
-              <div id="firebaseui-container"></div>
-            </div>
-          </div> -->
-        </div>
-      </div>
-    </div>
-    <script src="app.js"></script>
+    <!-- The surrounding HTML is left untouched by FirebaseUI.
+         Your app may use that space for branding, controls and other customizations.-->
+    <h1>Welcome to Browser Control</h1>
+    <div id="firebaseui-auth-container"></div>
   </body>
 </html>
