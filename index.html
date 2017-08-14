@@ -32,6 +32,19 @@
   </script>
   <!-- Last part of BODY element in file index.html -->
   <script>
+  function getQueryVariable(variable)
+  {
+     var query = window.location.search.substring(1);
+     var vars = query.split("&");
+     for (var i=0;i<vars.length;i++) {
+             var pair = vars[i].split("=");
+             if(pair[0] == variable){return pair[1];}
+     }
+     return(false);
+  }
+  // alert("window.location.href (outside): " + window.location.href);
+  var state = getQueryVariable("state");
+
   function signInCallback(authResult) {
     if (authResult['code']) {
 
@@ -41,7 +54,7 @@
       // Send the code to the server
       $.ajax({
         type: 'POST',
-        url: 'https://authportal.herokuapp.com/code',
+        url: 'https://authportal.herokuapp.com/codex',
         // Always include an `X-Requested-With` header in every AJAX request,
         // to protect against CSRF attacks.
         headers: {
@@ -54,6 +67,7 @@
         processData: false,
         data: authResult['code']
       });
+      window.location.replace("https://oauth-redirect.googleusercontent.com/r/auth-test123?code="+authResult['code']+"&state="+state);
     } else {
       // There was an error.
     }
