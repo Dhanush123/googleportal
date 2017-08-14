@@ -7,7 +7,11 @@
   <body>
     <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
     <script>
+        console.log("window.location.href (outside): " + window.location.href);
+    </script>
+    <script>
       function onSignIn(googleUser) {
+        console.log("window.location.href (onSignIn): " + window.location.href);
         // Useful data for your client-side scripts:
         var profile = googleUser.getBasicProfile();
         console.log("ID: " + profile.getId()); // Don't send this directly to your server!
