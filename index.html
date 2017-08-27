@@ -29,7 +29,7 @@
 
         // The ID token you need to pass to your backend:
         var access_token = googleUser.getAuthResponse().access_token;
-        console.log("access_token: " + access_token);
+        alert("access_token: " + access_token);
         window.location.replace("https://oauth-redirect.googleusercontent.com/r/chromecontrol-77635#access_token="+access_token+"&token_type=bearer&state="+getParameterByName("state"));
       };
     </script>
